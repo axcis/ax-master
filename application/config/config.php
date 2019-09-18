@@ -26,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['system_name'] = 'マスタデータ管理システム';
 $config['company_name'] = '株式会社アクシス';
 $config['base_url'] = 'http://localhost/ax-master/';
+$config['program_env'] = 'localhost';
 
 /*
 |--------------------------------------------------------------------------
