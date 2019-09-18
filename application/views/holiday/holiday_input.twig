@@ -1,0 +1,18 @@
+{% extends('common/base_input.twig')%}
+
+{% block title %}
+	{{ form.form_title("祝祭日"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		<dt>{{ form.set_col("祝祭日日付", 1) }}</dt>
+		{% if id == '' %}
+			<dd>{{ form.input_date("holiday_date", holiday_date) }}</dd>
+		{% else %}
+			<dd>{{ holiday_date }}</dd>
+		{% endif %}
+		<dt>{{ form.set_col("祝祭日名", 1) }}</dt>
+		<dd>{{ form.input("holiday_name", holiday_name, "text", "", "", 30) }}</dd>
+	</dl>
+{% endblock %}

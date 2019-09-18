@@ -1,0 +1,12 @@
+{% extends('common/base_input.twig')%}
+
+{% block title %}
+	{{ form.form_title("社内文書カテゴリ"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		<dt>{{ form.set_col("カテゴリ名", 1) }}</dt>
+		<dd>{{ form.input("category_name", category_name, "text", "", "", 50) }}</dd>
+	</dl>
+{% endblock %}

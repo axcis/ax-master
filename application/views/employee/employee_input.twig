@@ -1,0 +1,61 @@
+{% extends('common/base_input.twig')%}
+
+{% block js %}
+
+	window.onload = function() {
+		var flg = $("#retirement").prop('checked');
+		list_display(flg);
+	}
+	
+	$(function() {
+		$("#retirement").on("click", function(){
+			var flg = $(this).prop('checked');
+			list_display(flg);
+		});
+	});
+	
+	function list_display(flg) {
+		if (flg == true) {
+			$(".retirement").css('display', '');
+		} else {
+			$(".retirement").css('display', 'none');
+		}
+	}
+{% endblock %}
+
+{% block title %}
+	{{ form.form_title("社員"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		<dt>{{ form.set_col("社員名", 1) }}</dt>
+		<dd>{{ form.input("name", name, "text", "", "", 50) }}</dd>
+		<dt>{{ form.set_col("ログインID", 1) }}</dt>
+		<dd>{{ form.input("login_id", login_id, "text", "", "", 50) }}</dd>
+		{% if action == 'regist' %}
+			<dt>{{ form.set_col("パスワード", 1) }}</dt>
+			<dd>{{ form.input("password", password, "password", "", "", 50) }}</dd>
+		{% endif %}
+		<dt>{{ form.set_col("メールアドレス", 1) }}</dt>
+		<dd>{{ form.input("email_address", email_address, "text", "", "", 30) }}@axcis.co.jp</dd>
+		<dt>{{ form.set_col("権限", 1) }}</dt>
+		<dd>{{ form_select("user_level", user_level_map, user_level)|raw }}</dd>
+		<dt>{{ form.set_col("所属部署", 1) }}</dt>
+		<dd>{{ form_select("division_id", division_map, division_id)|raw }}</dd>
+		<dt>{{ form.set_col("入社日", 1) }}</dt>
+		<dd>{{ form.input_date("hire_date", hire_date) }}</dd>
+		{% if action == 'modify' %}
+			<dt>{{ form.set_col("退職情報") }}</dt>
+			<dd>
+				<p class="form-check-area">
+					{{ form_checkbox("retirement", 1, '退職済み', 'retirement', retirement_checked)|raw }}
+				</p>
+			</dd>
+			<dt class="retirement">{{ form.set_col("退職日") }}</dt>
+			<dd class="retirement">
+				{{ form.input_date("retirement_date", retirement_date) }}
+			</dd>
+		{% endif %}
+	</dl>
+{% endblock %}

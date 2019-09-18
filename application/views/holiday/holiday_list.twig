@@ -1,0 +1,12 @@
+{% extends('common/base_list.twig') %}
+
+{% block title %}
+	祝祭日マスタ管理画面
+{% endblock %}
+
+{% block search %}
+	<div class="search-col">
+		<p class="sel-title-o">日付</p>
+		{{ form.input_date("search_date", search_date) }}
+	</div>
+{% endblock %}

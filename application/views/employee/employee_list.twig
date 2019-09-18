@@ -1,0 +1,13 @@
+{% extends('common/base_list.twig') %}
+
+{% block title %}
+	社員マスタ管理画面
+{% endblock %}
+
+{% block search %}
+	{{ main.text_block("search-col", "社員名", "search_name", "", search_name)}}
+	{{ main.select_block("search-col", "部署", 'search_division_id', division_map, search_division_id) }}
+	<div class="search-col search-check">
+		{{ form_checkbox('retirement_show', '1', '退職者も表示する', 'retirement_show', retirement_show_checked)|raw }}
+	</div>
+{% endblock %}

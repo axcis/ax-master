@@ -1,0 +1,11 @@
+<tbody id="container">
+	{% for item in list %}
+		<tr>
+			{# 編集 #}
+			<td class="ta-center"><a href="{{ base_url }}{{ class_path }}Regist/modify_input/{{ item.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+			{% for key, value in item %}
+				<td class="ta-center">{{ value }}</td>
+			{% endfor%}
+		</tr>
+	{% endfor %}
+</tbody>

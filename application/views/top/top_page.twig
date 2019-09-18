@@ -1,0 +1,14 @@
+{% extends('common/base_list.twig') %}
+
+{% block main %}
+	<div id="menu-area">
+		<table class="menu-area-contents u-menu cf">
+			{% for item in contents_list %}
+				<tr>
+					<td><a href="{{ item.url }}" class="square_btn">{{ item.btn_name }}</a></td>
+					<td class="detail"><span>{{ item.detail }}</span></td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}
