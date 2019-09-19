@@ -16,6 +16,7 @@ class EmployeeListModel extends EmployeeBaseModel {
 		
 		$this->add_select(EmployeeDao::COL_ID);
 		$this->add_select(EmployeeDao::COL_NAME);
+		$this->add_select(EmployeeDao::COL_HIRAGANA);
 		$this->add_select(EmployeeDao::COL_LOGIN_ID);
 		$this->add_select(EmployeeDao::COL_DIVISION_ID);
 		$this->add_select(EmployeeDao::COL_EMAIL_ADDRESS);
@@ -60,9 +61,10 @@ class EmployeeListModel extends EmployeeBaseModel {
 		$list_col[] = array('width' => 70, 'value' => ''); //編集
 		$list_col[] = array('width' => 70, 'value' => 'ID');
 		$list_col[] = array('width' => 150, 'value' => '社員名');
+		$list_col[] = array('width' => 150, 'value' => '社員名(かな)');
 		$list_col[] = array('width' => 150, 'value' => 'ログインID');
 		$list_col[] = array('width' => 150, 'value' => '所属部署');
-		$list_col[] = array('width' => 350, 'value' => 'メールアドレス');
+		$list_col[] = array('width' => 300, 'value' => 'メールアドレス');
 		$list_col[] = array('width' => 100, 'value' => '権限');
 		
 		return $list_col;

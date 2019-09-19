@@ -27,6 +27,7 @@ class EmployeeRegistModel extends EmployeeBaseModel {
 		$act = $input['action'];
 		$id = $input['id'];
 		$name = $input['name'];
+		$hiragana = $input['hiragana'];
 		$login_id = $input['login_id'];
 		if ($act == 'regist') $password = $input['password'];
 		$email_address = $input['email_address']. $this->lang->line('email_domain');
@@ -38,6 +39,7 @@ class EmployeeRegistModel extends EmployeeBaseModel {
 		$msgs = array();
 		
 		if (trim($name) == '') $msgs[] = $this->lang->line('err_required', array($this->lang->line('employee_name')));
+		if (trim($hiragana) == '') $msgs[] = $this->lang->line('err_required', array($this->lang->line('employee_name_kana')));
 		if (trim($login_id) == '') $msgs[] = $this->lang->line('err_required', array($this->lang->line('login_id')));
 		if ($act == 'regist') {
 			if (trim($password) == '') $msgs[] = $this->lang->line('err_required', array($this->lang->line('password')));
@@ -108,6 +110,7 @@ class EmployeeRegistModel extends EmployeeBaseModel {
 		$this->set_table(EmployeeDao::TABLE_NAME, 'master');
 		
 		$this->add_col_val(EmployeeDao::COL_NAME, $input['name']);
+		$this->add_col_val(EmployeeDao::COL_HIRAGANA, $input['hiragana']);
 		$this->add_col_val(EmployeeDao::COL_LOGIN_ID, $input['login_id']);
 		$this->add_col_val(EmployeeDao::COL_PASSWORD, password_hash($input['password'], PASSWORD_BCRYPT));
 		$this->add_col_val(EmployeeDao::COL_EMAIL_ADDRESS, $input['email_address']. $this->lang->line('email_domain'));
@@ -129,6 +132,7 @@ class EmployeeRegistModel extends EmployeeBaseModel {
 		$this->set_table(EmployeeDao::TABLE_NAME, 'master');
 		
 		$this->add_col_val(EmployeeDao::COL_NAME, $input['name']);
+		$this->add_col_val(EmployeeDao::COL_HIRAGANA, $input['hiragana']);
 		$this->add_col_val(EmployeeDao::COL_LOGIN_ID, $input['login_id']);
 		$this->add_col_val(EmployeeDao::COL_EMAIL_ADDRESS, $input['email_address']. $this->lang->line('email_domain'));
 		$this->add_col_val(EmployeeDao::COL_USER_LEVEL, $input['user_level']);

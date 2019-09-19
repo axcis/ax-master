@@ -31,6 +31,8 @@
 	<dl>
 		<dt>{{ form.set_col("社員名", 1) }}</dt>
 		<dd>{{ form.input("name", name, "text", "", "", 50) }}</dd>
+		<dt>{{ form.set_col("社員名(かな)", 1) }}</dt>
+		<dd>{{ form.input("hiragana", hiragana, "text", "", "", 50) }}</dd>
 		<dt>{{ form.set_col("ログインID", 1) }}</dt>
 		<dd>{{ form.input("login_id", login_id, "text", "", "", 50) }}</dd>
 		{% if action == 'regist' %}
