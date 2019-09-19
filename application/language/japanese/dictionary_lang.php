@@ -8,6 +8,7 @@ $lang['login_id'] = "ログインID";
 $lang['password'] = "パスワード";
 
 $lang['employee_name'] = "社員名";
+$lang['employee_name_kana'] = "社員名(かな)";
 $lang['email_address'] = "メールアドレス";
 $lang['division'] = "所属部署";
 $lang['user_level'] = "権限";
