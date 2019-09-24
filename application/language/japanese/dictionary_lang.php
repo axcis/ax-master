@@ -26,6 +26,6 @@ $lang['point'] = "点数";
 $lang['holiday_date'] = "祝祭日日付";
 $lang['holiday_name'] = "祝祭日名";
 
-$lang['category_naem'] = "カテゴリ名";
+$lang['category_name'] = "カテゴリ名";
 
 ?>
