@@ -21,6 +21,7 @@ class TopPageModel extends MY_Model {
 		$list[] = array('btn_name' => 'セキュリティ研修問題管理', 'url' => base_url(). 'security_question/SecurityQuestionList', 'detail' => $this->lang->line('security_question_detail'));
 		$list[] = array('btn_name' => '祝祭日管理', 'url' => base_url(). 'holiday/HolidayList', 'detail' => $this->lang->line('holiday_detail'));
 		$list[] = array('btn_name' => '社内文書カテゴリ管理', 'url' => base_url(). 'document_category/DocumentCategoryList', 'detail' => $this->lang->line('document_category_detail'));
+		$list[] = array('btn_name' => '会議室管理', 'url' => base_url(). 'conference/ConferenceList', 'detail' => $this->lang->line('conference_detail'));
 		
 		return $list;
 	}

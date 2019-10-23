@@ -1,0 +1,12 @@
+{% extends('common/base_input.twig')%}
+
+{% block title %}
+	{{ form.form_title("会議室"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		<dt>{{ form.set_col("会議室名", 1) }}</dt>
+		<dd>{{ form.input("room_name", room_name, "text", "", "", 50) }}</dd>
+	</dl>
+{% endblock %}
