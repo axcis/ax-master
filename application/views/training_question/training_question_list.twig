@@ -1,0 +1,31 @@
+{% extends('common/base_list.twig') %}
+
+{% block title %}
+	社内研修問題管理画面
+{% endblock %}
+
+{% block search %}
+	{{ main.select_block("search-col", "研修名", 'search_training_type', training_category_map, search_training_type) }}
+{% endblock %}
+
+{% block list_area %}
+	<div id="list-area">
+		{{ main.pager_block }}
+		<table class="list-table tablesorter">
+			{{ include('common/list/list_col.twig')}}
+			<tbody id="container">
+				{% for item in list %}
+					<tr>
+						{# 編集 #}
+						<td class="ta-center"><a href="{{ base_url }}{{ class_path }}Regist/modify_input/{{ item.training_type }}-{{ item.id }}"><i class="fa fa-pencil" aria-hidden="true"></i></a></td>
+						{% for key, value in item %}
+							{% if key != 'training_type' %}
+								<td class="ta-center">{{ value }}</td>
+							{% endif %}
+						{% endfor%}
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

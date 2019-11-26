@@ -1,0 +1,28 @@
+{% extends('common/base_input.twig')%}
+
+{% block title %}
+	{{ form.form_title("社内研修問題"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		{% if action == 'regist' %}
+			<dt>{{ form.set_col("研修名", 1) }}</dt>
+			<dd>{{ form_select("training_type", training_category_map, training_type)|raw }}</dd>
+			<dt>{{ form.set_col("問題番号", 1) }} ※変更不可</dt>
+			<dd>{{ form.input("question_no", question_no, "text", "", "", 20) }}</dd>
+		{% else %}
+			{{ form.form_hidden("", "training_type", training_type) }}
+			<dt>{{ form.set_col("研修名") }}</dt>
+			<dd>{{ training_category_map[training_type] }}</dd>
+		{% endif %}
+		<dt>{{ form.set_col("問題", 1) }}</dt>
+		<dd>{{ form.textarea("question", 50, 10, question) }}</dd>
+		<dt>{{ form.set_col("解答選択肢", 1) }} ※1つにつき、1行で入力してください。</dt>
+		<dd>{{ form.textarea("answer_list", 50, 10, answer_list) }}</dd>
+		<dt>{{ form.set_col("答え", 1) }} ※答えは必ず1つにしてください。</dt>
+		<dd>{{ form.input("answer", answer, "text", "", "", 20) }}</dd>
+		<dt>{{ form.set_col("点数", 1) }}</dt>
+		<dd>{{ form.input("point", point, "text", "", "", 20) }}</dd>
+	</dl>
+{% endblock %}

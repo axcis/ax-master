@@ -28,4 +28,9 @@ $lang['holiday_name'] = "祝祭日名";
 
 $lang['category_name'] = "カテゴリ名";
 
+$lang['training_name'] = "研修名";
+$lang['text_file_name'] = "テキスト名(アップロード時)";
+$lang['dl_text_name'] = "テキスト名(ダウンロード時)";
+$lang['training_info'] = "詳細";
+
 ?>

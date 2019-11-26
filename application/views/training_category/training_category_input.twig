@@ -1,0 +1,18 @@
+{% extends('common/base_input.twig')%}
+
+{% block title %}
+	{{ form.form_title("社内研修カテゴリ"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		<dt>{{ form.set_col("研修名", 1) }}</dt>
+		<dd>{{ form.input("training_name", training_name, "text", "", "", 20) }}</dd>
+		<dt>{{ form.set_col("テキスト名(アップロード時)", 1) }}</dt>
+		<dd>{{ form.input("text_file_name", text_file_name, "text", "", "", 20) }}.pdf</dd>
+		<dt>{{ form.set_col("テキスト名(ダウンロード時)", 1) }}</dt>
+		<dd>{{ form.input("dl_text_name", dl_text_name, "text", "", "", 20) }}.pdf</dd>
+		<dt>{{ form.set_col("詳細", 1) }}</dt>
+		<dd>{{ form.textarea("training_info", 50, 10, training_info) }}</dd>
+	</dl>
+{% endblock %}

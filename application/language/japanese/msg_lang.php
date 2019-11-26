@@ -25,8 +25,10 @@ $lang['file_uploaded'] = "アップロードしました。";
 //コンテンツ情報メッセージ
 $lang['employee_detail'] = "社員の登録・更新等の管理はこちらから";
 $lang['division_detail'] = "部署の登録・更新等の管理はこちらから";
-$lang['privacy_question_detail'] = "Pマーク研修問題の登録・更新等の管理はこちらから";
-$lang['security_question_detail'] = "セキュリティ研修問題の登録・更新等の管理はこちらから";
+$lang['training_category_detail'] = "社内研修カテゴリの登録・更新等の管理はこちらから";
+$lang['training_question_detail'] = "社内研修問題の登録・更新等の管理はこちらから";
+// $lang['privacy_question_detail'] = "Pマーク研修問題の登録・更新等の管理はこちらから";
+// $lang['security_question_detail'] = "セキュリティ研修問題の登録・更新等の管理はこちらから";
 $lang['holiday_detail'] = "祝祭日の登録・更新等の管理はこちらから";
 $lang['document_category_detail'] = "社内文書カテゴリの登録・更新等の管理はこちらから";
 $lang['conference_detail'] = "会議室の登録・更新等の管理はこちらから";
