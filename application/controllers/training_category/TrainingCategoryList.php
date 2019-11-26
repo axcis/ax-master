@@ -24,5 +24,21 @@ class TrainingCategoryList extends MY_Controller {
 		
 		$this->view('training_category/training_category_list');
 	}
+	
+	/**
+	 * 一覧のExcel出力
+	 */
+	public function output() {
+		
+		$this->load->model('training_category/TrainingCategoryListModel', 'model');
+		$this->load->library('dao/TrainingCategoryDao');
+		
+		$list = $this->model->get_list();
+		$list_col = $this->model->get_list_col();
+		
+		$this->load->model('common/ListOutputModel', 'list');
+		
+		$this->list->output('社内研修カテゴリ一覧', $list, $list_col);
+	}
 }
 ?>
