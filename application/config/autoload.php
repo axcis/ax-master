@@ -132,4 +132,6 @@ $autoload['language'] = array('dictionary', 'msg', 'id_pass');
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('employee/EmployeeBaseModel');
+$autoload['model'] = array('employee/EmployeeBaseModel',
+											'training_question/TrainingQuestionBaseModel'
+);

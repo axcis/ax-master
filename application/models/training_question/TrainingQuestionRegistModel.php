@@ -5,14 +5,40 @@
  * @author takanori_gozu
  *
  */
-class TrainingQuestionRegistModel extends MY_Model {
+class TrainingQuestionRegistModel extends TrainingQuestionBaseModel {
+	
+	/**
+	 * 詳細
+	 */
+	public function get_training_question_info($type_id) {
+		
+		$type_id = explode('-', $type_id);
+		
+		$type = $type_id[0];
+		$id = $type_id[1];
+		
+		$this->set_table(TrainingQuestionDao::TABLE_NAME, 'master');
+		
+		$this->add_where(TrainingQuestionDao::COL_ID, $id);
+		$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $type);
+		
+		$info = $this->do_select_info();
+		
+		//解答群はフォーマットを変換する
+		$answer_list = $info['answer_list'];
+		
+		$info['answer_list'] = $this->change_to_input_format($answer_list);
+		
+		return $info;
+	}
 	
 	/**
 	 * バリデーション
 	 */
-	public function validation($input, $type) {
+	public function validation($input) {
 		
 		$act = $input['action'];
+		$training_type = $input['training_type'];
 		if ($act == 'regist') {
 			$question_no = $input['question_no'];
 		} else {
@@ -26,6 +52,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 		$msgs = array();
 		
 		//未入力チェック
+		if (trim($training_type) == '') $msgs[] = $this->lang->line('err_not_select', array($this->lang->line('training_name')));
 		if ($act == 'regist') {
 			if (trim($question_no) == '') $msgs[] = $this->lang->line('err_required', array($this->lang->line('question_no')));
 		}
@@ -51,26 +78,16 @@ class TrainingQuestionRegistModel extends MY_Model {
 			$msgs[] = $this->lang->line('err_regex_match', array($this->lang->line('point')));
 		}
 		
-		//解答群に'&'および'='は不可(parse_strで配列に変換できるようにしているため)
-		if ((strpos($answer_list, '&') !== false) || (strpos($answer_list, '=') !== false)) {
-			$msgs[] = $this->lang->line('err_regex_match', array($this->lang->line('answer_list')));
-		}
-		
 		if ($msgs != null) return $msgs;
 		
-		$arr = explode(',', $answer_list);
-		$count = 0;
+		$answer_list = str_replace(array("\r\n","\r","\n"), "\n", $answer_list);
 		
-		//空欄の解答は不可
-		foreach ($arr as $value) {
-			if ($value == '') {
-				$msgs[] = $this->lang->line('err_regex_match', array($this->lang->line('answer_list')));
-				break;
-			}
-			$count++;
-		}
+		//配列に変化し、空白行を詰める
+		$answer_list = explode("\n", $answer_list);
+		$answer_list = array_map('trim', $answer_list);
+		$answer_list = array_filter($answer_list, 'strlen');
 		
-		if ($msgs != null) return $msgs;
+		$count = count($answer_list);
 		
 		//選択肢より多い答えの番号は登録不可
 		if ($count < $answer) {
@@ -85,7 +102,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 			$this->set_table(TrainingQuestionDao::TABLE_NAME, 'master');
 			
 			$this->add_where(TrainingQuestionDao::COL_ID, $question_no);
-			$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $type);
+			$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $training_type);
 			
 			$count = $this->do_count();
 			
@@ -94,6 +111,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 		
 		if ($msgs != null) return $msgs;
 		
+		//100点を超える登録は不可
 		$this->set_table(TrainingQuestionDao::TABLE_NAME, 'master');
 		
 		$this->add_select_sum_as(TrainingQuestionDao::COL_POINT);
@@ -102,7 +120,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 			$this->add_where(TrainingQuestionDao::COL_ID, $question_no, self::COMP_NOT_EQUAL);
 		}
 		
-		$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $type);
+		$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $training_type);
 		
 		$result = $this->do_select();
 		
@@ -114,29 +132,9 @@ class TrainingQuestionRegistModel extends MY_Model {
 	}
 	
 	/**
-	 * 詳細
-	 */
-	public function get_training_question_info($id, $type) {
-		
-		$this->set_table(TrainingQuestionDao::TABLE_NAME, 'master');
-		
-		$this->add_where(TrainingQuestionDao::COL_ID, $id);
-		$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $type);
-		
-		$info = $this->do_select_info();
-		
-		//解答群はフォーマットを変換する
-		$answer_list = $info['answer_list'];
-		
-		$info['answer_list'] = $this->change_to_input_format($answer_list);
-		
-		return $info;
-	}
-	
-	/**
 	 * 新規登録
 	 */
-	public function db_regist($input, $type) {
+	public function db_regist($input) {
 		
 		$this->set_table(TrainingQuestionDao::TABLE_NAME, 'master');
 		
@@ -145,7 +143,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 		$this->add_col_val(TrainingQuestionDao::COL_ANSWER_LIST, $this->change_to_db_format($input['answer_list']));
 		$this->add_col_val(TrainingQuestionDao::COL_ANSWER, $input['answer']);
 		$this->add_col_val(TrainingQuestionDao::COL_POINT, $input['point']);
-		$this->add_col_val(TrainingQuestionDao::COL_TRAINING_TYPE, $type);
+		$this->add_col_val(TrainingQuestionDao::COL_TRAINING_TYPE, $input['training_type']);
 		
 		$this->do_insert();
 	}
@@ -153,7 +151,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 	/**
 	 * 更新
 	 */
-	public function db_modify($input, $type) {
+	public function db_modify($input) {
 		
 		$this->set_table(TrainingQuestionDao::TABLE_NAME, 'master');
 		
@@ -163,7 +161,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 		$this->add_col_val(TrainingQuestionDao::COL_POINT, $input['point']);
 		
 		$this->add_where(TrainingQuestionDao::COL_ID, $input['id']);
-		$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $type);
+		$this->add_where(TrainingQuestionDao::COL_TRAINING_TYPE, $input['training_type']);
 		
 		$this->do_update();
 	}
@@ -178,7 +176,7 @@ class TrainingQuestionRegistModel extends MY_Model {
 		parse_str($list, $arr);
 		
 		foreach ($arr as $value) {
-			if ($answer_list != '')  $answer_list .= ',';
+			if ($answer_list != '')  $answer_list .= "\n";
 			$answer_list .= $value;
 		}
 		
@@ -193,7 +191,12 @@ class TrainingQuestionRegistModel extends MY_Model {
 		$answer_list = '';
 		$idx = 1;
 		
-		$arr = explode(',', $list);
+		$list = str_replace(array("\r\n","\r","\n"), "\n", $list);
+		
+		//配列に変化し、空白行を詰める
+		$arr = explode("\n", $list);
+		$arr = array_map('trim', $arr);
+		$arr = array_filter($arr, 'strlen');
 		
 		foreach ($arr as $value) {
 			if ($idx > 1) $answer_list .= '&';
