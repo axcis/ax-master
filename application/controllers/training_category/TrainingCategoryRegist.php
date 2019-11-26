@@ -42,7 +42,12 @@ class TrainingCategoryRegist extends MY_Controller {
 		$this->load->model('training_category/TrainingCategoryRegistModel', 'model');
 		$this->load->library('dao/TrainingCategoryDao');
 		
-		$this->set_attribute($this->model->get_training_category_info($id));
+		$info = $this->model->get_training_category_info($id);
+		
+		$this->set_attribute($info);
+		
+		$this->set('text_file_name', substr($info['text_file_name'], 0, strpos($info['text_file_name'], '.')));
+		$this->set('dl_text_name', substr($info['dl_text_name'], 0, strpos($info['dl_text_name'], '.')));
 		
 		$this->set('action', 'modify');
 		$this->set('class_path', 'training_category/TrainingCategory');
