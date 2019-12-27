@@ -43,12 +43,15 @@ class EmployeeListModel extends EmployeeBaseModel {
 		$user_level_map = $this->get_user_level_map();
 		
 		foreach ($employee_list as &$row) {
-			$row[EmployeeDao::COL_RETIREMENT] = '';
 			$division_id = $row[EmployeeDao::COL_DIVISION_ID];
 			$user_level = $row[EmployeeDao::COL_USER_LEVEL];
 			$row[EmployeeDao::COL_DIVISION_ID] = $division_map[$division_id];
 			$row[EmployeeDao::COL_USER_LEVEL] = $user_level_map[$user_level];
-			if ($row[EmployeeDao::COL_RETIREMENT] == '1') $row[EmployeeDao::COL_RETIREMENT] = '済';
+			if ($row[EmployeeDao::COL_RETIREMENT] == '1') {
+				$row[EmployeeDao::COL_RETIREMENT] = '済';
+			} else {
+				$row[EmployeeDao::COL_RETIREMENT] = '';
+			}
 		}
 		
 		return $employee_list;
