@@ -21,6 +21,7 @@ class EmployeeListModel extends EmployeeBaseModel {
 		$this->add_select(EmployeeDao::COL_DIVISION_ID);
 		$this->add_select(EmployeeDao::COL_EMAIL_ADDRESS);
 		$this->add_select(EmployeeDao::COL_USER_LEVEL);
+		$this->add_select(EmployeeDao::COL_RETIREMENT);
 		
 		$this->add_where(EmployeeDao::COL_NAME, $this->lang->line('administrator'), self::COMP_NOT_EQUAL);
 		
@@ -42,10 +43,12 @@ class EmployeeListModel extends EmployeeBaseModel {
 		$user_level_map = $this->get_user_level_map();
 		
 		foreach ($employee_list as &$row) {
+			$row[EmployeeDao::COL_RETIREMENT] = '';
 			$division_id = $row[EmployeeDao::COL_DIVISION_ID];
 			$user_level = $row[EmployeeDao::COL_USER_LEVEL];
 			$row[EmployeeDao::COL_DIVISION_ID] = $division_map[$division_id];
 			$row[EmployeeDao::COL_USER_LEVEL] = $user_level_map[$user_level];
+			if ($row[EmployeeDao::COL_RETIREMENT] == '1') $row[EmployeeDao::COL_RETIREMENT] = '済';
 		}
 		
 		return $employee_list;
@@ -65,7 +68,8 @@ class EmployeeListModel extends EmployeeBaseModel {
 		$list_col[] = array('width' => 150, 'value' => 'ログインID');
 		$list_col[] = array('width' => 150, 'value' => '所属部署');
 		$list_col[] = array('width' => 300, 'value' => 'メールアドレス');
-		$list_col[] = array('width' => 100, 'value' => '権限');
+		$list_col[] = array('width' => 150, 'value' => '権限');
+		$list_col[] = array('width' => 70, 'value' => '退職');
 		
 		return $list_col;
 	}
