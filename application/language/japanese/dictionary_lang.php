@@ -33,6 +33,8 @@ $lang['text_file_name'] = "テキスト名(アップロード時)";
 $lang['dl_text_name'] = "テキスト名(ダウンロード時)";
 $lang['training_info'] = "詳細";
 
+$lang['category_detail'] = '説明文';
+
 $lang['user_id'] = "ユーザー";
 
 ?>
