@@ -36,8 +36,8 @@ class AtiCategoryRegistModel extends MY_Model {
 		if ($msgs != null) return $msgs;
 		
 		//文字数チェック
-		if (mb_strlen(trim($category_name)) > 20) $msgs[] = $this->lang->line('err_max_length', array($this->lang->line('category_name'), 20));
-		if (mb_strlen(trim($category_detail)) > 40) $msgs[] = $this->lang->line('err_max_length', array($this->lang->line('category_detail'), 40));
+		if (mb_strlen(trim($category_name)) > 10) $msgs[] = $this->lang->line('err_max_length', array($this->lang->line('category_name'), 10));
+		if (mb_strlen(trim($category_detail)) > 15) $msgs[] = $this->lang->line('err_max_length', array($this->lang->line('category_detail'), 15));
 		
 		return $msgs;
 	}
