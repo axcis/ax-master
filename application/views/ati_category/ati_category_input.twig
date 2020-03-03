@@ -1,0 +1,14 @@
+{% extends('common/base_input.twig')%}
+
+{% block title %}
+	{{ form.form_title("Eラーニングカテゴリ"~value) }}
+{% endblock %}
+
+{% block inputform %}
+	<dl>
+		<dt>{{ form.set_col("カテゴリ名", 1) }}</dt>
+		<dd>{{ form.input("category_name", category_name, "text", "", "", 40) }}</dd>
+		<dt>{{ form.set_col("説明文", 1) }}</dt>
+		<dd>{{ form.input("category_detail", category_detail, "text", "", "", 40) }}</dd>
+	</dl>
+{% endblock %}
