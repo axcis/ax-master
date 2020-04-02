@@ -12,7 +12,7 @@ class DivisionRegistModel extends MY_Model {
 	 */
 	public function validation($input) {
 		
-		$division_name = $input['division_name'];
+		$division_name = $input['name'];
 		
 		$msgs = array();
 		
@@ -44,7 +44,7 @@ class DivisionRegistModel extends MY_Model {
 		
 		$this->set_table(DivisionDao::TABLE_NAME, 'master');
 		
-		$this->add_col_val(DivisionDao::COL_NAME, $input['division_name']);
+		$this->add_col_val(DivisionDao::COL_NAME, $input['name']);
 		
 		$this->do_insert();
 	}
@@ -56,7 +56,7 @@ class DivisionRegistModel extends MY_Model {
 		
 		$this->set_table(DivisionDao::TABLE_NAME, 'master');
 		
-		$this->add_col_val(DivisionDao::COL_NAME, $input['division_name']);
+		$this->add_col_val(DivisionDao::COL_NAME, $input['name']);
 		$this->add_where(DivisionDao::COL_ID, $input['id']);
 		
 		$this->do_update();
